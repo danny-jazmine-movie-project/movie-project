@@ -51,15 +51,18 @@ $(function () {
         $("#movieContainer").empty();
         movieList.forEach(movieData=> {
             $("#movieContainer").append(`
-            <div class="card">
+            <div class="card" data-movie-id="${movieData.id}">
                 <p>Title: ${movieData.title}</p>
                 <p>Rating: ${movieData.rating}</p>
                 <p>Year: ${movieData.year}</p>
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src=${movieData.poster}/>
                 </div>  
-                <button type="submit" id="edit-button">Edit</button>
-                <button type="submit" class="delete" data-delete="${movieData.id}">Delete</button>
+                <form>
+                    <input class="editTitle" type="text">
+                </form>
+                <button type="submit" class="edit">Edit</button>
+                <button type="submit" class="delete">Delete</button>             
             </div>
             `)
             console.log(movieData);
@@ -68,22 +71,26 @@ $(function () {
 
 
 //======================= EDIT =========================================================================================
-//     $("#edit-button").on('click', function (e) {
-//         e.preventDefault();
-//         let idMovie = $("#addMovie").val();
-//         let ratingMovie = $("#movieRating").val();
-//         let editPost = {
-//             title: `${idMovie}`,
-//             rating: `${ratingMovie}`
-//         }
-//
-//     const patchOptions = {
-//         method: 'PATCH', // It adds to the existing array base on 'id' partial
-//         headers: {
-//             'Content-Type' : 'application/json'
-//         },
-//         body: JSON.stringify(editPost)
-//     }
+    async function editMovie(id){
+        let editOption = {
+            method: 'PATCH',
+            header: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(editedMovie)
+        }
+        await fetch(`${movieURL}/${title}`, editOption).then(result => result);
+        // getAllMovieInfo().then(data => {
+        //     printMovieCards(data);
+        // });
+    }
+    $(document.body).on("click",".edit", function(e){
+        e.preventDefault()
+        let parentMovie = $(this).parent();
+        $('.editTitle').css("display", "inline");
+        editMovie(parentMovie.attr("data-movie-id"))
+    });
+
 //======================= DELETE =======================================================================================
     async function deleteMovie(id){
         let deleteOption = {
@@ -97,10 +104,10 @@ $(function () {
             printMovieCards(data);
         });
     }
-    //===================== DELETE MOVIES ================================================================
+//===================== DELETE MOVIES ================================================================
     $(document.body).on("click",".delete", function(e){
         e.preventDefault()
-        deleteMovie($(this).attr("data-delete"))
+        deleteMovie($(this).parent().attr("data-movie-id"))
     });
     // populating allmoviepromise so that when we get the result it will have a JSON file with all the movies
     allMoviesPromise = getAllMovieInfo()
