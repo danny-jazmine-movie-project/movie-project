@@ -36,7 +36,7 @@ $("#movieAndRating").on('click', function (e) {
             'Content-Type' : 'application/json'
         }
     }
-    fetch(movieURL + "/22", deleteOptions);
+    fetch(movieURL + "/6", deleteOptions);
 });
 
 
