@@ -13,8 +13,7 @@ $(function () {
         });
     }
     getAllMovieInfo().then(data=>console.log(data));
-
-    //==================== ADD NEW MOVIE ============================================================
+//==================== ADD NEW MOVIE ==================================================================
         // This function adds new movie
     $("#movieAndRating").on('click', function (e) {
         e.preventDefault();
@@ -45,10 +44,13 @@ $(function () {
             'Content-Type' : 'application/json'
         }
     }
-
 //=====================OUTPUT MOVIES ================================================================
     getAllMovieInfo().then(data => {
-        data.forEach(movieData=> {
+        printMovieCards(data);
+    });
+
+    async function printMovieCards(movieList) {
+        movieList.forEach(movieData=> {
             $("#movieContainer").append(`
             <div class="card">
                 <p>Title: ${movieData.title}</p>
@@ -57,10 +59,29 @@ $(function () {
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src=${movieData.poster}/>
                 </div>  
+                <button type="submit" class="edit">Edit</button>
+                <button type="submit" class="delete" data-delete="${movieData.id}">Delete</button>
             </div>
             `)
             console.log(movieData);
-        })
+        });
+    }
+
+    async function deleteMovie(id){
+        let deleteOption = {
+            method: 'DELETE',
+            header: {
+                'Content0Type' : 'application/json'
+            }
+        }
+    let deleteData = await fetch(`${movieURL}/${id}`, deleteOption).then(result => result);
+        printMovieCards(getAllMovieInfo());
+    }
+    //===================== DELETE MOVIES ================================================================
+    $(document.body).on("click",".delete", function (e){
+        e.preventDefault()
+        deleteMovie($(this).attr("data-delete"))
+
     });
     // fetch(movieURL + "/6", deleteOptions);`
 });
