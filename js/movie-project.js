@@ -58,15 +58,33 @@ $(function () {
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src=${movieData.poster}/>
                 </div>  
-                <button type="submit" class="edit">Edit</button>
+                <button type="submit" id="edit-button">Edit</button>
                 <button type="submit" class="delete" data-delete="${movieData.id}">Delete</button>
             </div>
             `)
             console.log(movieData);
         });
     }
-//======================= DELETE =======================================================================================
 
+
+//======================= EDIT =========================================================================================
+//     $("#edit-button").on('click', function (e) {
+//         e.preventDefault();
+//         let idMovie = $("#addMovie").val();
+//         let ratingMovie = $("#movieRating").val();
+//         let editPost = {
+//             title: `${idMovie}`,
+//             rating: `${ratingMovie}`
+//         }
+//
+//     const patchOptions = {
+//         method: 'PATCH', // It adds to the existing array base on 'id' partial
+//         headers: {
+//             'Content-Type' : 'application/json'
+//         },
+//         body: JSON.stringify(editPost)
+//     }
+//======================= DELETE =======================================================================================
     async function deleteMovie(id){
         let deleteOption = {
             method: 'DELETE',
