@@ -15,7 +15,7 @@ $(function () {
     }
     getAllMovieInfo().then(data=>console.log(data));
 
-//==================== ADD NEW MOVIE ==================================================================
+//==================== ADD NEW MOVIE ===================================================================================
         // This function adds new movie when you click the button
     $("#movieAndRating").on('click', function (e) {
         e.preventDefault();
@@ -41,7 +41,7 @@ $(function () {
         postMovie();
     }); // The of the end of on click function
 
-//=====================OUTPUT MOVIES ================================================================
+//=====================OUTPUT MOVIES ===================================================================================
     // getting data
     getAllMovieInfo().then(data => {
         printMovieCards(data);
@@ -65,7 +65,7 @@ $(function () {
             console.log(movieData);
         });
     }
-//======================= DELETE ====================================================================
+//======================= DELETE =======================================================================================
 
     async function deleteMovie(id){
         let deleteOption = {
