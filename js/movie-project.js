@@ -1,5 +1,13 @@
 // THIS IS JQUERY
 $(function () {
+
+    const movieURL = "https://amused-typical-skunk.glitch.me/movies";
+
+    function getAllMovieInfo(){
+        fetch(movieURL).then(resp=>resp.json()).then(data => console.log(data));
+    }
+    getAllMovieInfo();
+
 $("#movieAndRating").on('click', function (e) {
     e.preventDefault();
     /** The C in CRUD: CREATE */
@@ -9,24 +17,28 @@ $("#movieAndRating").on('click', function (e) {
         title: `${idMovie}`,
         rating: `${ratingMovie}`
     }
-    const movieURL = "https://amused-typical-skunk.glitch.me/movies";
-
-    const postMovie = {
+    const postMovieOptions = {
         method: 'POST', // Create a new post
         headers: {
             'Content-Type' : 'application/json'
         },
         body: JSON.stringify(movieToPost)
     }
-
-    function getMovies() {
-        fetch(movieURL, postMovie).then(resp => resp.json()).then(data=>console.log(data));
+    function postMovie() {
+        fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
     }
-    getMovies();
-
+    postMovie();
+    /** THE D IN CRUD -- Delete */
+    const deleteOptions = {
+        method: 'DELETE', // Delete a post
+        headers: {
+            'Content-Type' : 'application/json'
+        }
+    }
+// This will modify
+    fetch(movieURL + "/17", deleteOptions).then(postMovie);
     });
 });
-// fetch(movieURL, postMovie).then(getMovies); // This will create a new movie when userInput clicks enter
 
 
 
