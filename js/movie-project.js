@@ -28,6 +28,7 @@ $("#movieAndRating").on('click', function (e) {
         fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
     }
     postMovie();
+    });
     /** THE D IN CRUD -- Delete */
     const deleteOptions = {
         method: 'DELETE', // Delete a post
@@ -35,9 +36,7 @@ $("#movieAndRating").on('click', function (e) {
             'Content-Type' : 'application/json'
         }
     }
-// This will modify
-    fetch(movieURL + "/17", deleteOptions).then(postMovie);
-    });
+    fetch(movieURL + "/22", deleteOptions);
 });
 
 
