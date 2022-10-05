@@ -1,13 +1,18 @@
 // THIS IS JQUERY
 $(function () {
-
+    // MOVIE URL
     const movieURL = "https://amused-typical-skunk.glitch.me/movies";
+    let movieData = [];
 
+    // this console.log our movie data
     function getAllMovieInfo(){
-        fetch(movieURL).then(resp=>resp.json()).then(data => console.log(data));
+        fetch(movieURL).then(resp=>resp.json()).then(data => {
+            console.log(data)
+            movieData = data;
+        });
     }
     getAllMovieInfo();
-
+    // This function adds new movie
 $("#movieAndRating").on('click', function (e) {
     e.preventDefault();
     /** The C in CRUD: CREATE */
@@ -28,7 +33,7 @@ $("#movieAndRating").on('click', function (e) {
         fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
     }
     postMovie();
-    });
+    }); // The of the end of on click function
     /** THE D IN CRUD -- Delete */
     const deleteOptions = {
         method: 'DELETE', // Delete a post
@@ -36,7 +41,17 @@ $("#movieAndRating").on('click', function (e) {
             'Content-Type' : 'application/json'
         }
     }
-    fetch(movieURL + "/6", deleteOptions);
+    // fetch(movieURL + "/6", deleteOptions);`
+    movieData.forEach((element, i) => {
+        $(".movieContainer").append(`
+            <div class="card">
+                <p>Test Again</p>
+                <p>Title: ${movieData[i].title}</p>
+                <p>Year: ${movieData[i].year}</p>
+                <img width="100%" height="70%" src=${movieData[i].poster}>
+            </div>
+            `)
+    });
 });
 
 
