@@ -80,16 +80,16 @@ $(function () {
             <div class="card mt-3 mb-3" data-movie-id="${movieData.id}">
                 <p class="movieHidden hiddenInfo">${movieData.title}</p>
                 <p class="movieHidden hiddenInfo">Rating: ${movieData.rating}</p>
-                <p class="movieHidden hiddenInfo">Year: ${movieData.year}</p>
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src="${movieData.poster}">
                 </div>   
                 <input class="editTitle" type="text"placeholder="Edit Movie Title">
-                <button class="movieHidden hiddenInfo edit" type="submit">Edit</button>
-                <button class="movieHidden hiddenInfo delete" type="submit">Delete</button>             
+                <button class="movieHidden hiddenInfo edit btn btn-outline-success" type="submit">Edit</button>
+                <button class="movieHidden hiddenInfo delete btn btn-outline-success" type="submit">Delete</button>             
             </div>
             `)
             console.log(movieData);
+            // <p className="movieHidden hiddenInfo">Year: ${movieData.year}</p>
         });
     }
 //======================= EDIT =========================================================================================
