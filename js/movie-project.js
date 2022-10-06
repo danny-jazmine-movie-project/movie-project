@@ -17,33 +17,36 @@ $(function () {
 
 //==================== ADD NEW MOVIE ===================================================================================
     // This function adds new movie when you click the button
-
+    let poster;
     function apiMoviesDataBase(userInput)  {
-       let poster;
        return fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
             .then(resp=>resp.json())
             .then(data => {
-                poster = 'https://image.tmdb.org/t/p/w300'
+                poster = 'https://image.tmdb.org/t/p/original/'
                 // let userMovie = {
                 //     poster: `${poster}${data.result[0].poster_path}`,
                 // }
-                return data.results[0].poster_path
+                console.log(data)
+                return data.results[0].poster_path;
             });
     }
     addNewMovie()
     function addNewMovie() {
         $("#movieAndRating").on('click', function (e) {
             e.preventDefault();
-            let idMovie = $("#addMovie").val();  //search bar in HTML
+            let idMovie = $("#addMovie").val();        //search bar in HTML
             let ratingMovie = $("#movieRating").val();
             let posterPath = apiMoviesDataBase(idMovie);
             console.log("console log detective work:")
             console.log(posterPath);
-            posterPath.then(resp=>{
+            posterPath.then(moviePosterPath=>{
+                console.log("more detective work")
+                console.log(moviePosterPath);
+                console.log(`${poster}${moviePosterPath}`);
                 let movieToPost = {
                     title: `${idMovie}`,
                     rating: `${ratingMovie}`,
-                    // poster: `${poster}${data.result[0].poster_path}`
+                    poster: `${poster}${moviePosterPath}`
                 }
                 const postMovieOptions = {
                     method: 'POST', // Create a new post
@@ -91,7 +94,7 @@ $(function () {
                 <p class="movieHidden hiddenInfo">Rating: ${movieData.rating}</p>
                 <p class="movieHidden hiddenInfo">Year: ${movieData.year}</p>
                 <div class="poster-wrapper">
-                    <img width="100%" height="100%" src=${movieData.poster}/>
+                    <img width="100%" height="100%" src="${movieData.poster}">
                 </div>   
                 <input class="editTitle" type="text">
                 <button class="movieHidden hiddenInfo edit" type="submit">Edit</button>
