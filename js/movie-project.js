@@ -75,7 +75,7 @@ $(function () {
         let modification = {
             title: title
         };
-
+        // Created a variable to PATCH userInput
         let editOptions = {
             method: 'PATCH', // It adds to the existing array base on 'id' partial
             headers: {
@@ -83,14 +83,15 @@ $(function () {
             },
             body: JSON.stringify(modification)
         }
-        console.log(editOptions);
+        // console.log(editOptions);
         await fetch(`${movieURL}/${id}`, editOptions).then(result => result);
     }
+    // Function that shows the hidden "editTitle"
     $(document.body).on("click",".edit", function(e){
         e.preventDefault()
         $(this).prev().css("display", "inline");
     });
-
+    // Function on keyup userInput to add new movie title
     $(document.body).on('keyup','.editTitle', function(e){
         e.preventDefault()
         let parentMovie = $(this).parent()
@@ -101,7 +102,6 @@ $(function () {
                 console.log(parentMovie.attr("data-movie-id"))
             }
     });
-
 //======================= DELETE =======================================================================================
     async function deleteMovie(id){
         let deleteOption = {
