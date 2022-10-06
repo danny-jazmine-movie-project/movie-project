@@ -5,6 +5,25 @@
     min-height: 100vh;
     max-height: 100vh;
 }
+/*BROS MOVIES FONT*/
+.navbar-brand{
+    font-family: netflix, sans-serif;
+    font-size: xxx-large;
+    margin-left: 460px;
+}
+/* CUSTOM FONT */
+@font-face {
+    font-family: netflix;
+    src: url("/font/netflix-font.otf") ;
+}
+.form-inline {
+    margin-right: 40px;
+/*.usrInput {*/
+/*    margin-right: 60px*/
+/*}*/
+/*.addingStars {*/
+/*    margin-right: 60px*/
+}
 .card {
     width: 300px;
     /*display: flex;*/

@@ -51,7 +51,7 @@ $(function () {
         $("#movieContainer").empty();
         movieList.forEach(movieData=> {
             $("#movieContainer").append(`
-            <div class="card" data-movie-id="${movieData.id}">
+            <div class="card mt-3" data-movie-id="${movieData.id}">
                 <p>Title: ${movieData.title}</p>
                 <p>Rating: ${movieData.rating}</p>
                 <p>Year: ${movieData.year}</p>
