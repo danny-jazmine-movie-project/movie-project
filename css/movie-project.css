@@ -13,8 +13,12 @@ body {
 .navbar-brand{
     font-family: netflix, sans-serif;
     font-size: xxx-large;
-    margin-left: 460px;
+    margin-left: 600px;
     color: #ffffff !important;
+    transform: scale(1.05);
+}
+.navbar-brand:hover {
+    transform: scale(1.05);
 }
 /* CUSTOM FONT */
 @font-face {
@@ -30,12 +34,12 @@ body {
 /*    margin-right: 60px*/
 }
 .card {
-    width: 300px;
-    /*display: flex;*/
-    /*flex-direction: row;*/
+    width: 302px;
     transition: all ease .2s;
-    /*background-color: rgb(255, 87, 51) ;opacity:0.2;*/
     border-radius: 20px;
+    background-color: transparent;
+    color: white;
+
 
 
 }
@@ -47,7 +51,7 @@ body {
     width: 100vw;
     align-items: center;
     border-radius: 25px;
-    background-color: red;
+    /*background-color: red;*/
 }
 .poster-wrapper {
     width: 100%;

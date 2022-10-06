@@ -17,29 +17,59 @@ $(function () {
 
 //==================== ADD NEW MOVIE ===================================================================================
     // This function adds new movie when you click the button
-    $("#movieAndRating").on('click', function (e) {
-        e.preventDefault();
-        let idMovie = $("#addMovie").val();
-        let ratingMovie = $("#movieRating").val();
-        let movieToPost = {
-            title: `${idMovie}`,
-            rating: `${ratingMovie}`
-        }
-        const postMovieOptions = {
-            method: 'POST', // Create a new post
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(movieToPost)
-        }
-        async function postMovie() {
-            await fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
-            getAllMovieInfo().then(data => {
-                printMovieCards(data);
+    let poster;
+    function apiMoviesDataBase(userInput)  {
+        fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
+            .then(resp=>resp.json())
+            .then(data => {
+                poster = 'https://image.tmdb.org/t/p/w300'
+                // let userMovie = {
+                //     poster: `${poster}${data.result[0].poster_path}`,
+                // }
+                console.log(data)
             });
-        }
-        postMovie();
-    }); // The of the end of on click function
+    }
+    addNewMovie()
+    function addNewMovie() {
+        $("#movieAndRating").on('click', function (e) {
+            e.preventDefault();
+            let idMovie = $("#addMovie").val();
+            let ratingMovie = $("#movieRating").val();
+            apiMoviesDataBase(idMovie);
+
+            let movieToPost = {
+                title: `${idMovie}`,
+                rating: `${ratingMovie}`
+            }
+            const postMovieOptions = {
+                method: 'POST', // Create a new post
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(movieToPost)
+            }
+            async function postMovie() {
+                await fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
+                getAllMovieInfo().then(data => {
+                    printMovieCards(data);
+                });
+            }
+            postMovie();
+        }); // The of the end of on click function
+    }
+//===================== API MOVIES =====================================================================================
+//    let poster;
+//     function apiMoviesDataBase(userInput)  {
+//         fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
+//             .then(resp=>resp.json())
+//             .then(data => {
+//                 poster = 'https://image.tmdb.org/t/p/w300'
+//                 let userMovie = {
+//                     poster: `${poster}${data.result[0].poster_path}`,
+//                 }
+//                 console.log(data)
+//             });
+//     }
 
 //=====================OUTPUT MOVIES ===================================================================================
     // getting data
@@ -51,7 +81,7 @@ $(function () {
         $("#movieContainer").empty();
         movieList.forEach(movieData=> {
             $("#movieContainer").append(`
-            <div class="card mt-3" data-movie-id="${movieData.id}">
+            <div class="card mt-3 mb-3" data-movie-id="${movieData.id}">
                 <p class="movieHidden hiddenInfo">${movieData.title}</p>
                 <p class="movieHidden hiddenInfo">Rating: ${movieData.rating}</p>
                 <p class="movieHidden hiddenInfo">Year: ${movieData.year}</p>
@@ -82,12 +112,8 @@ $(function () {
         }
         // console.log(editOptions);
         await fetch(`${movieURL}/${id}`, editOptions).then(result => result).then(getAllMovieInfo).then(data=>printMovieCards(data));
-
-        // });
     }
-    //   getAllMovieInfo().then(data => {
-    //                 printMovieCards(data);
-    //             });
+
     // Hidden Edit and delete button
     $(document.body).on("click",".card", function(e){
         e.preventDefault()
@@ -137,6 +163,8 @@ $(function () {
     // calling the function to print all the movies on the screen
     printMovieCards(allMoviesPromise);
     // fetch(movieURL + "/6", deleteOptions);`
+
+
 });
 
 
