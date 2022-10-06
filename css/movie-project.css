@@ -4,12 +4,17 @@
     overflow-x: hidden;
     min-height: 100vh;
     max-height: 100vh;
+    background-color: black;
+}
+body {
+    background-color: black;
 }
 /*BROS MOVIES FONT*/
 .navbar-brand{
     font-family: netflix, sans-serif;
     font-size: xxx-large;
     margin-left: 460px;
+    color: #ffffff !important;
 }
 /* CUSTOM FONT */
 @font-face {
@@ -28,6 +33,10 @@
     width: 300px;
     /*display: flex;*/
     /*flex-direction: row;*/
+    transition: all ease .2s;
+    /*background-color: rgb(255, 87, 51) ;opacity:0.2;*/
+    border-radius: 20px;
+
 
 }
 #movieContainer {
@@ -36,8 +45,9 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     width: 100vw;
-    overflow-y: scroll;
-
+    align-items: center;
+    border-radius: 25px;
+    background-color: red;
 }
 .poster-wrapper {
     width: 100%;
@@ -55,9 +65,16 @@
     position:absolute;
     height:100%;
     width:100%;
-    object-fit:cover
+    /*object-fit:cover*/
 }
 
 .editTitle {
     display: none;
+}
+.movieHidden{
+    display: none;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }

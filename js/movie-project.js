@@ -52,22 +52,21 @@ $(function () {
         movieList.forEach(movieData=> {
             $("#movieContainer").append(`
             <div class="card mt-3" data-movie-id="${movieData.id}">
-                <p>Title: ${movieData.title}</p>
-                <p>Rating: ${movieData.rating}</p>
-                <p>Year: ${movieData.year}</p>
+                <p class="movieHidden hiddenInfo">${movieData.title}</p>
+                <p class="movieHidden hiddenInfo">Rating: ${movieData.rating}</p>
+                <p class="movieHidden hiddenInfo">Year: ${movieData.year}</p>
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src=${movieData.poster}/>
                 </div>   
                 <input class="editTitle" type="text">
-                <button type="submit" class="edit">Edit</button>
-                <button type="submit" class="delete">Delete</button>             
+                <button class="movieHidden hiddenInfo edit" type="submit">Edit</button>
+                <button class="movieHidden hiddenInfo delete" type="submit">Delete</button>             
             </div>
             `)
             console.log(movieData);
         });
     }
 //======================= EDIT =========================================================================================
-
     async function editMovie(id, title){
         console.log(id);
         let modification = {
@@ -82,12 +81,26 @@ $(function () {
             body: JSON.stringify(modification)
         }
         // console.log(editOptions);
-        await fetch(`${movieURL}/${id}`, editOptions).then(result => result);
+        await fetch(`${movieURL}/${id}`, editOptions).then(result => result).then(getAllMovieInfo).then(data=>printMovieCards(data));
+
+        // });
     }
+    //   getAllMovieInfo().then(data => {
+    //                 printMovieCards(data);
+    //             });
+    // Hidden Edit and delete button
+    $(document.body).on("click",".card", function(e){
+        e.preventDefault()
+        console.log("inside .card")
+        $(this).children(".hiddenInfo").toggleClass("movieHidden");
+    });
     // Function that shows the hidden "editTitle"
     $(document.body).on("click",".edit", function(e){
         e.preventDefault()
-        $(this).prev().css("display", "inline");
+        let $editButton = $(this).parents(".card").children(".editTitle");
+        //console.log($editButton);
+        $editButton.fadeIn();
+        $editButton.focus();
     });
     // Function on keyup userInput to add new movie title
     $(document.body).on('keyup','.editTitle', function(e){
@@ -99,6 +112,7 @@ $(function () {
             editMovie(parentMovie.attr("data-movie-id"),title)
                 console.log(parentMovie.attr("data-movie-id"))
             }
+
     });
 //======================= DELETE =======================================================================================
     async function deleteMovie(id){
