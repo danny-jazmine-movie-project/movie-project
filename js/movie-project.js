@@ -57,10 +57,8 @@ $(function () {
                 <p>Year: ${movieData.year}</p>
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src=${movieData.poster}/>
-                </div>  
-                <form>
-                    <input class="editTitle" type="text">
-                </form>
+                </div>   
+                <input class="editTitle" type="text">
                 <button type="submit" class="edit">Edit</button>
                 <button type="submit" class="delete">Delete</button>             
             </div>
@@ -71,24 +69,37 @@ $(function () {
 
 
 //======================= EDIT =========================================================================================
-    async function editMovie(id){
-        let editOption = {
-            method: 'PATCH',
-            header: {
+
+    async function editMovie(id, title){
+        console.log(id);
+        let modification = {
+            title: title
+        };
+
+        let editOptions = {
+            method: 'PATCH', // It adds to the existing array base on 'id' partial
+            headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(editedMovie)
+            body: JSON.stringify(modification)
         }
-        await fetch(`${movieURL}/${title}`, editOption).then(result => result);
-        // getAllMovieInfo().then(data => {
-        //     printMovieCards(data);
-        // });
+        console.log(editOptions);
+        await fetch(`${movieURL}/${id}`, editOptions).then(result => result);
     }
     $(document.body).on("click",".edit", function(e){
         e.preventDefault()
-        let parentMovie = $(this).parent();
-        $('.editTitle').css("display", "inline");
-        editMovie(parentMovie.attr("data-movie-id"))
+        $(this).prev().css("display", "inline");
+    });
+
+    $(document.body).on('keyup','.editTitle', function(e){
+        e.preventDefault()
+        let parentMovie = $(this).parent()
+            if(e.key === "Enter") {
+                let title = $(this).val();
+                console.log("You press enter on the form")
+            editMovie(parentMovie.attr("data-movie-id"),title)
+                console.log(parentMovie.attr("data-movie-id"))
+            }
     });
 
 //======================= DELETE =======================================================================================
