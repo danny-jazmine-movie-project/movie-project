@@ -3,33 +3,35 @@ $(function () {
     // MOVIE URL
     const movieURL = "https://amused-typical-skunk.glitch.me/movies";
     let allMoviesPromise;
-    let movieData = [];
+    // let movieData = [];
 
     // this console.log our movie data
     function getAllMovieInfo(){
+    // fetch both a function and a promise
       return fetch(movieURL).then(resp=>resp.json()).then(data => {
             console.log(data)
-            movieData = data;
+            // movieData = data;
             return data;
         });
     }
+    //               .then is waiting for a promise
     getAllMovieInfo().then(data=>console.log(data));
 
 //==================== ADD NEW MOVIE ===================================================================================
-    // This function adds new movie when you click the button
+        //============ API FUNCTION ===========
     let poster;
     function apiMoviesDataBase(userInput)  {
        return fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
             .then(resp=>resp.json())
             .then(data => {
+                // this has the first part of the image that you search
                 poster = 'https://image.tmdb.org/t/p/original/'
-                // let userMovie = {
-                //     poster: `${poster}${data.result[0].poster_path}`,
-                // }
+
                 console.log(data)
                 return data.results[0].poster_path;
             });
     }
+    // This function adds new movie when you click the button
     addNewMovie()
     function addNewMovie() {
         $("#movieAndRating").on('click', function (e) {
@@ -37,12 +39,12 @@ $(function () {
             let idMovie = $("#addMovie").val();        //search bar in HTML
             let ratingMovie = $("#movieRating").val();
             let posterPath = apiMoviesDataBase(idMovie);
-            console.log("console log detective work:")
-            console.log(posterPath);
+            // console.log("console log detective work:")
+            // console.log(posterPath);
             posterPath.then(moviePosterPath=>{
-                console.log("more detective work")
-                console.log(moviePosterPath);
-                console.log(`${poster}${moviePosterPath}`);
+                // console.log("more detective work")
+                // console.log(moviePosterPath);
+                // console.log(`${poster}${moviePosterPath}`);
                 let movieToPost = {
                     title: `${idMovie}`,
                     rating: `${ratingMovie}`,
@@ -65,20 +67,6 @@ $(function () {
             });
         }); // The of the end of on click function
     }
-//===================== API MOVIES =====================================================================================
-//    let poster;
-//     function apiMoviesDataBase(userInput)  {
-//         fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
-//             .then(resp=>resp.json())
-//             .then(data => {
-//                 poster = 'https://image.tmdb.org/t/p/w300'
-//                 let userMovie = {
-//                     poster: `${poster}${data.result[0].poster_path}`,
-//                 }
-//                 console.log(data)
-//             });
-//     }
-
 //=====================OUTPUT MOVIES ===================================================================================
     // getting data
     getAllMovieInfo().then(data => {
@@ -96,7 +84,7 @@ $(function () {
                 <div class="poster-wrapper">
                     <img width="100%" height="100%" src="${movieData.poster}">
                 </div>   
-                <input class="editTitle" type="text">
+                <input class="editTitle" type="text"placeholder="Edit Movie Title">
                 <button class="movieHidden hiddenInfo edit" type="submit">Edit</button>
                 <button class="movieHidden hiddenInfo delete" type="submit">Delete</button>             
             </div>
@@ -121,7 +109,6 @@ $(function () {
         // console.log(editOptions);
         await fetch(`${movieURL}/${id}`, editOptions).then(result => result).then(getAllMovieInfo).then(data=>printMovieCards(data));
     }
-
     // Hidden Edit and delete button
     $(document.body).on("click",".card", function(e){
         e.preventDefault()
@@ -146,7 +133,6 @@ $(function () {
             editMovie(parentMovie.attr("data-movie-id"),title)
                 console.log(parentMovie.attr("data-movie-id"))
             }
-
     });
 //======================= DELETE =======================================================================================
     async function deleteMovie(id){
@@ -171,8 +157,6 @@ $(function () {
     // calling the function to print all the movies on the screen
     printMovieCards(allMoviesPromise);
     // fetch(movieURL + "/6", deleteOptions);`
-
-
 });
 
 
