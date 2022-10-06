@@ -17,44 +17,49 @@ $(function () {
 
 //==================== ADD NEW MOVIE ===================================================================================
     // This function adds new movie when you click the button
-    let poster;
+
     function apiMoviesDataBase(userInput)  {
-        fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
+       let poster;
+       return fetch(`https://api.themoviedb.org/3/search/movie${TMBD_TOKEN}&language=en-US&query=${userInput}&include_adult=false`)
             .then(resp=>resp.json())
             .then(data => {
                 poster = 'https://image.tmdb.org/t/p/w300'
                 // let userMovie = {
                 //     poster: `${poster}${data.result[0].poster_path}`,
                 // }
-                console.log(data)
+                return data.results[0].poster_path
             });
     }
     addNewMovie()
     function addNewMovie() {
         $("#movieAndRating").on('click', function (e) {
             e.preventDefault();
-            let idMovie = $("#addMovie").val();
+            let idMovie = $("#addMovie").val();  //search bar in HTML
             let ratingMovie = $("#movieRating").val();
-            apiMoviesDataBase(idMovie);
-
-            let movieToPost = {
-                title: `${idMovie}`,
-                rating: `${ratingMovie}`
-            }
-            const postMovieOptions = {
-                method: 'POST', // Create a new post
-                headers: {
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify(movieToPost)
-            }
-            async function postMovie() {
-                await fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
-                getAllMovieInfo().then(data => {
-                    printMovieCards(data);
-                });
-            }
-            postMovie();
+            let posterPath = apiMoviesDataBase(idMovie);
+            console.log("console log detective work:")
+            console.log(posterPath);
+            posterPath.then(resp=>{
+                let movieToPost = {
+                    title: `${idMovie}`,
+                    rating: `${ratingMovie}`,
+                    // poster: `${poster}${data.result[0].poster_path}`
+                }
+                const postMovieOptions = {
+                    method: 'POST', // Create a new post
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify(movieToPost)
+                }
+                async function postMovie() {
+                    await fetch(movieURL, postMovieOptions).then(resp => resp.json()).then(data=>console.log(data));
+                    getAllMovieInfo().then(data => {
+                        printMovieCards(data);
+                    });
+                }
+                postMovie();
+            });
         }); // The of the end of on click function
     }
 //===================== API MOVIES =====================================================================================
