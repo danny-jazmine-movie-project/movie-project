@@ -1,8 +1,24 @@
+.body {
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
+    min-height: 100vh;
+    max-height: 100vh;
+}
 .card {
-    width: 200px;
+    width: 300px;
+    /*display: flex;*/
+    /*flex-direction: row;*/
+
 }
 #movieContainer {
     display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    width: 100vw;
+    overflow-y: scroll;
+
 }
 .poster-wrapper {
     width: 100%;

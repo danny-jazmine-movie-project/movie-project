@@ -16,7 +16,7 @@ $(function () {
     getAllMovieInfo().then(data=>console.log(data));
 
 //==================== ADD NEW MOVIE ===================================================================================
-        // This function adds new movie when you click the button
+    // This function adds new movie when you click the button
     $("#movieAndRating").on('click', function (e) {
         e.preventDefault();
         let idMovie = $("#addMovie").val();
@@ -46,7 +46,7 @@ $(function () {
     getAllMovieInfo().then(data => {
         printMovieCards(data);
     });
-
+    // This is where it prints the movie card
     async function printMovieCards(movieList) {
         $("#movieContainer").empty();
         movieList.forEach(movieData=> {
@@ -66,8 +66,6 @@ $(function () {
             console.log(movieData);
         });
     }
-
-
 //======================= EDIT =========================================================================================
 
     async function editMovie(id, title){
@@ -115,7 +113,7 @@ $(function () {
             printMovieCards(data);
         });
     }
-//===================== DELETE MOVIES ================================================================
+//===================== DELETE MOVIES ==================================================================================
     $(document.body).on("click",".delete", function(e){
         e.preventDefault()
         deleteMovie($(this).parent().attr("data-movie-id"))
