@@ -3,8 +3,6 @@ $(function () {
     // MOVIE URL
     const movieURL = "https://amused-typical-skunk.glitch.me/movies";
     let allMoviesPromise;
-
-
     // this console.log our movie data
     function getAllMovieInfo(){
     // fetch both a function and a promise
@@ -25,7 +23,6 @@ $(function () {
             .then(data => {
                 // this has the first part of the image that you search
                 poster = 'https://image.tmdb.org/t/p/original/'
-
                 console.log(data)
                 return data.results[0].poster_path;
             });

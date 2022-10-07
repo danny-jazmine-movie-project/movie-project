@@ -17,7 +17,7 @@ body {
     color: #ffffff !important;
     transform: scale(1.05);
 }
-.navbar-brand:hover {
+.brosMovie:hover {
     transform: scale(1.05);
 }
 /* CUSTOM FONT */
@@ -31,7 +31,7 @@ body {
 .card {
     width: 302px;
     transition: all ease .2s;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: transparent;
     color: white;
 
