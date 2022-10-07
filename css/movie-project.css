@@ -44,8 +44,6 @@ body {
     width: 100vw;
     align-items: center;
     border-radius: 25px;
-    /*overflow-y: scroll;*/
-    /*background-color: red;*/
 }
 .poster-wrapper {
     width: 100%;
@@ -62,7 +60,6 @@ body {
     position:absolute;
     height:100%;
     width:100%;
-    /*object-fit:cover*/
 }
 
 .editTitle {
@@ -79,11 +76,3 @@ body {
 #movieRating {
     padding: 4px 24px;
 }
-/*.hiddenInfo {*/
-/*    justify-content: center;*/
-/*    display: flex;*/
-/*}*/
-/*.movieHidden {*/
-/*    box-sizing: border-box;*/
-/*    border-radius: 8px;*/
-/*}*/
