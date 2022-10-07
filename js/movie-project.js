@@ -3,14 +3,13 @@ $(function () {
     // MOVIE URL
     const movieURL = "https://amused-typical-skunk.glitch.me/movies";
     let allMoviesPromise;
-    // let movieData = [];
+
 
     // this console.log our movie data
     function getAllMovieInfo(){
     // fetch both a function and a promise
       return fetch(movieURL).then(resp=>resp.json()).then(data => {
             console.log(data)
-            // movieData = data;
             return data;
         });
     }
@@ -39,12 +38,7 @@ $(function () {
             let idMovie = $("#addMovie").val();        //search bar in HTML
             let ratingMovie = $("#movieRating").val();
             let posterPath = apiMoviesDataBase(idMovie);
-            // console.log("console log detective work:")
-            // console.log(posterPath);
             posterPath.then(moviePosterPath=>{
-                // console.log("more detective work")
-                // console.log(moviePosterPath);
-                // console.log(`${poster}${moviePosterPath}`);
                 let movieToPost = {
                     title: `${idMovie}`,
                     rating: `${ratingMovie}`,
